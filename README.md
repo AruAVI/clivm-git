@@ -10,6 +10,13 @@
 - Gentoo  
 - Ubuntu
 
+## Dependencies
+clivm's dependencies include:
+- debootstrap (for Debian/Ubuntu)
+- pacstrap (for Arch)
+- wget
+- git
+
 ## Installation
 
 To install **clivm**, simply run:
