@@ -1,0 +1,56 @@
+#!/bin/bash
+
+set -e
+
+usage() {
+  echo "Usage: $0 [-l] <chroot-dir> [command]"
+  echo "  -l            Pass -l flag to chroot (run login shell)"
+  echo "  <chroot-dir>  Directory to chroot into"
+  echo "  [command]     Command to run inside chroot (default: /bin/bash)"
+  exit 1
+}
+
+LOGIN_FLAG=""
+
+while getopts ":l" opt; do
+  case $opt in
+    l) LOGIN_FLAG="-l" ;;
+    *) usage ;;
+  esac
+done
+shift $((OPTIND -1))
+
+if [ $# -lt 1 ]; then
+  usage
+fi
+
+CHROOT_DIR=$1
+shift
+
+CMD=${@:-/bin/bash}
+
+if [ ! -d "$CHROOT_DIR" ]; then
+  echo "Error: Directory '$CHROOT_DIR' does not exist."
+  exit 1
+fi
+
+for d in dev proc sys; do
+  if [ ! -d "$CHROOT_DIR/$d" ]; then
+    mkdir -p "$CHROOT_DIR/$d"
+  fi
+done
+
+unshare --mount --pid --fork --mount-proc bash -c "
+  set -e
+  mount --bind /dev $CHROOT_DIR/dev
+  mount --bind /dev/pts $CHROOT_DIR/dev/pts
+  mount --bind /proc $CHROOT_DIR/proc
+  mount --bind /sys $CHROOT_DIR/sys
+
+  mount --make-private $CHROOT_DIR/dev
+  mount --make-private $CHROOT_DIR/proc
+  mount --make-private $CHROOT_DIR/sys
+
+  chroot $LOGIN_FLAG $CHROOT_DIR $CMD
+"
+
