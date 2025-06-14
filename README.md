@@ -14,17 +14,17 @@
 
 To install **clivm**, simply run:
 
-\`\`\`bash
+```bash
 make install
-\`\`\`
+```
 
 ## Uninstallation
 
 To uninstall **clivm**, run:
 
-\`\`\`bash
+```bash
 make clean
-\`\`\`
+```
 
 ## Usage
 
