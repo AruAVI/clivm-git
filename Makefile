@@ -8,6 +8,7 @@ LOCAL_BIN := $(REAL_HOME)/bin
 LAUNCHER_SRC := launcher.py
 LAUNCHER_TARGET := $(LOCAL_BIN)/launcher
 
+
 # Colors for fancy output
 GREEN := \033[0;32m
 YELLOW := \033[1;33m
@@ -20,27 +21,14 @@ RESET := \033[0m
 install:
 	@echo -e "$(BLUE)==> Creating directories in $(INSTALL_DIR)...$(RESET)"
 	mkdir -p $(BIN_DEST) $(INSTALLER_DEST) $(LOCAL_BIN)
-
 	@echo -e "$(GREEN)==> Copying binaries...$(RESET)"
-	@if [ "$$(readlink -f binaries)" != "$$(readlink -f $(BIN_DEST))" ]; then \
-		cp -r binaries/* $(BIN_DEST)/; \
-	else \
-		echo -e "$(YELLOW)==> Skipping binaries copy (source and destination are the same).$(RESET)"; \
-	fi
-
+	cp -r binaries/* $(BIN_DEST)/
 	@echo -e "$(GREEN)==> Copying installers...$(RESET)"
 	cp -r installers/* $(INSTALLER_DEST)/
-
 	@echo -e "$(GREEN)==> Copying launcher and removing .py extension...$(RESET)"
-	@if [ "$$(readlink -f $(LAUNCHER_SRC))" != "$$(readlink -f $(LAUNCHER_TARGET))" ]; then \
-		cp $(LAUNCHER_SRC) $(LAUNCHER_TARGET); \
-	else \
-		echo -e "$(YELLOW)==> Skipping launcher copy (source and destination are the same).$(RESET)"; \
-	fi
-
+	cp $(LAUNCHER_SRC) $(LAUNCHER_TARGET)
 	@echo -e "$(YELLOW)==> Making launcher executable...$(RESET)"
 	chmod +x $(LAUNCHER_TARGET)
-
 	@echo -e "$(GREEN)Installation complete!$(RESET)"
 
 clean:
