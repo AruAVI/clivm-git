@@ -29,7 +29,7 @@ install:
 	cp $(LAUNCHER_SRC) $(LAUNCHER_TARGET)
 	@echo -e "$(YELLOW)==> Making launcher executable...$(RESET)"
 	chmod +x $(LAUNCHER_TARGET)
-	@echo -e "$(GREEN)Installation complete! 🎉$(RESET)"
+	@echo -e "$(GREEN)Installation complete!$(RESET)"
 
 clean:
 	@if [ "$$(id -u)" -ne 0 ]; then \
