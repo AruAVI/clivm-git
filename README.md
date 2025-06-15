@@ -22,7 +22,7 @@ clivm's dependencies include:
 To install **clivm**, simply run:
 
 ```bash
-make install
+sudo make install
 ```
 
 ## Uninstallation
@@ -30,7 +30,7 @@ make install
 To uninstall **clivm**, run:
 
 ```bash
-make clean
+sudo make clean
 ```
 
 ## Usage
