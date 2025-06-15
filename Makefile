@@ -18,6 +18,10 @@ RESET := \033[0m
 .PHONY: install clean
 
 install:
+	@if [ "$$(id -u)" -ne 0 ]; then \
+		echo -e "$(RED)==> ERROR: make install must be run as root! Use sudo make install.$(RESET)"; \
+		exit 1; \
+	fi
 	@echo -e "$(BLUE)==> Creating directories in $(INSTALL_DIR)...$(RESET)"
 	mkdir -p $(BIN_DEST) $(INSTALLER_DEST)
 	@echo -e "$(GREEN)==> Copying binaries...$(RESET)"
