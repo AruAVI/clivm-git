@@ -13,26 +13,43 @@
 ## Dependencies
 clivm's dependencies include:
 - debootstrap (for Debian/Ubuntu)
-- pacstrap (for Arch)
+- pacstrap (part of the arch-install-scripts package, used for Arch)
 - wget
 - git
 
+**Note:** If not using Arch/Arch-based, you can't use pacstrap.
+
 ## Installation
 
-To install **clivm**, simply run:
+Install from the AUR:
 
 ```bash
+yay -S clivm
+```
+
+Or use git:
+
+```bash
+git clone https://github.com/AruAVI/clivm-git.git
+cd clivm-git
 sudo make install
 ```
 
 ## Uninstallation
 
-To uninstall **clivm**, run:
+To uninstall the AUR version:
 
 ```bash
+yay -R clivm
+sudo rm -rf ~/clivm
+```
+Or if the repository was cloned:
+
+```bash
+cd clivm-git
 sudo make clean
 ```
 
 ## Usage
 
-After install, just run "launcher" and it will open the clivm launcher.
+After installation, run "clivm" in your terminal to open the launcher.
