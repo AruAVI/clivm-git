@@ -4,9 +4,8 @@ REAL_HOME := $(shell if [ -n "$$SUDO_USER" ]; then echo /home/$$SUDO_USER; else 
 INSTALL_DIR := $(REAL_HOME)/clivm
 BIN_DEST := $(INSTALL_DIR)/binaries
 INSTALLER_DEST := $(INSTALL_DIR)/installers
-LOCAL_BIN := $(REAL_HOME)/bin
-LAUNCHER_SRC := launcher.py
-LAUNCHER_TARGET := $(LOCAL_BIN)/launcher
+LAUNCHER_SRC := clivm.py
+LAUNCHER_TARGET := /usr/bin/clivm
 
 
 # Colors for fancy output
@@ -20,14 +19,14 @@ RESET := \033[0m
 
 install:
 	@echo -e "$(BLUE)==> Creating directories in $(INSTALL_DIR)...$(RESET)"
-	mkdir -p $(BIN_DEST) $(INSTALLER_DEST) $(LOCAL_BIN)
+	mkdir -p $(BIN_DEST) $(INSTALLER_DEST)
 	@echo -e "$(GREEN)==> Copying binaries...$(RESET)"
 	cp -r binaries/* $(BIN_DEST)/
 	@echo -e "$(GREEN)==> Copying installers...$(RESET)"
 	cp -r installers/* $(INSTALLER_DEST)/
-	@echo -e "$(GREEN)==> Copying launcher and removing .py extension...$(RESET)"
+	@echo -e "$(GREEN)==> Copying clivm.py to /usr/bin/clivm...$(RESET)"
 	cp $(LAUNCHER_SRC) $(LAUNCHER_TARGET)
-	@echo -e "$(YELLOW)==> Making launcher executable...$(RESET)"
+	@echo -e "$(YELLOW)==> Making /usr/bin/clivm executable...$(RESET)"
 	chmod +x $(LAUNCHER_TARGET)
 	@echo -e "$(GREEN)Installation complete!$(RESET)"
 
@@ -38,6 +37,6 @@ clean:
 	fi
 	@echo -e "$(YELLOW)==> Removing installed files from $(INSTALL_DIR)...$(RESET)"
 	rm -rf $(INSTALL_DIR)
-	@echo -e "$(YELLOW)==> Removing launcher executable from $(LAUNCHER_TARGET)...$(RESET)"
+	@echo -e "$(YELLOW)==> Removing /usr/bin/clivm...$(RESET)"
 	rm -f $(LAUNCHER_TARGET)
 	@echo -e "$(GREEN)==> Clean complete. All installed files removed.$(RESET)"
