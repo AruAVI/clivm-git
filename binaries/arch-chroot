@@ -194,10 +194,6 @@ arch-chroot() {
     chroot_add_resolv_conf "$chrootdir" || die "failed to setup resolv.conf"
   fi
 
-  if ! mountpoint -q "$chrootdir"; then
-    warning "$chrootdir is not a mountpoint. This may have undesirable side effects."
-  fi
-
   chroot_args=()
   [[ $userspec ]] && chroot_args+=(--userspec "$userspec")
 
